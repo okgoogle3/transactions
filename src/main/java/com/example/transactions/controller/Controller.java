@@ -12,7 +12,18 @@ import org.springframework.web.bind.annotation.*;
 public class Controller {
     private final ServiceTest service;
 
-    @PostMapping
+    @PostMapping("/false")
+    public ResponseEntity<Void> createWrongData(@RequestBody DataDTO dataDTO) {
+        final String name = dataDTO.getName();
+        try {
+            service.createWrongTestData(name);
+            return ResponseEntity.ok().build();
+        } catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/true")
     public ResponseEntity<Void> createData(@RequestBody DataDTO dataDTO) {
         final String name = dataDTO.getName();
         try {

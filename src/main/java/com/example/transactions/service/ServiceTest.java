@@ -23,11 +23,19 @@ public class ServiceTest {
     private final static Logger logger =
             Logger.getLogger(ServiceTest.class.getName());
     @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void createWrongTestData(String name) {
+        repo1.save(new Table1("2"));
+        repo2.save(new Table2("2"));
+        repo3.save(new Table3(null));
+        logger.info("Ебать, не работает");
+        throw new RuntimeException();
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void createTestData(String name) {
         repo1.save(new Table1("2"));
         repo2.save(new Table2("2"));
         repo3.save(new Table3(null));
         logger.info("Ебать, работает");
-        throw new RuntimeException();
     }
 }
