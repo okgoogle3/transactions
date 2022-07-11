@@ -8,6 +8,7 @@ import com.example.transactions.repo.Table2Repo;
 import com.example.transactions.repo.Table3Repo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ public class ServiceTest {
 
     private final static Logger logger =
             Logger.getLogger(ServiceTest.class.getName());
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void createTestData(String name) {
         repo1.save(new Table1("2"));
         repo2.save(new Table2("2"));
